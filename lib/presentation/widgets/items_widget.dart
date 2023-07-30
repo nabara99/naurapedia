@@ -38,7 +38,7 @@ class ItemsWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
-                        '-50%',
+                        'New',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
@@ -59,7 +59,7 @@ class ItemsWidget extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     child: Image.asset(
-                      'images/$i.png',
+                      'assets/images/$i.png',
                       height: 120,
                       width: 120,
                     ),

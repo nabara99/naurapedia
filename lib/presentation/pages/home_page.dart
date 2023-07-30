@@ -37,6 +37,11 @@ class HomePage extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
+                      const Icon(
+                        Icons.search,
+                        size: 27,
+                        color: Color(0xFF4C53A5),
+                      ),
                       Container(
                         margin: const EdgeInsets.only(
                           left: 5,
@@ -44,17 +49,12 @@ class HomePage extends StatelessWidget {
                         height: 50,
                         width: 300,
                         child: TextFormField(
+                          onFieldSubmitted: (_) {},
                           decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Search here...',
+                            hintText: 'Search',
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      const Icon(
-                        Icons.camera_alt,
-                        size: 27,
-                        color: Color(0xFF4C53A5),
                       ),
                     ],
                   ),
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                   child: const Text(
                     'Categories',
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4C53A5),
                     ),
@@ -80,9 +80,9 @@ class HomePage extends StatelessWidget {
                   margin:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: const Text(
-                    'Best Selling',
+                    'List Products',
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4C53A5),
                     ),
