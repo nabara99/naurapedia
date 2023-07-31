@@ -56,30 +56,30 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                 ),
                 child: Column(
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       padding: const EdgeInsets.all(5),
-                    //       decoration: BoxDecoration(
-                    //         color: const Color(0xFF4C53A5),
-                    //         borderRadius: BorderRadius.circular(20),
-                    //       ),
-                    //       child: const Text(
-                    //         'New',
-                    //         style: TextStyle(
-                    //           fontSize: 10,
-                    //           color: Colors.white,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     const Icon(
-                    //       Icons.favorite_border,
-                    //       color: Colors.red,
-                    //     )
-                    //   ],
-                    // ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // Container(
+                        //   padding: const EdgeInsets.all(5),
+                        //   decoration: BoxDecoration(
+                        //     color: const Color(0xFF4C53A5),
+                        //     borderRadius: BorderRadius.circular(20),
+                        //   ),
+                        //   child: const Text(
+                        //     'New',
+                        //     style: TextStyle(
+                        //       fontSize: 10,
+                        //       color: Colors.white,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        // ),
+                        Icon(
+                          Icons.favorite_border,
+                          color: Colors.red,
+                        )
+                      ],
+                    ),
                     InkWell(
                       onTap: () {
                         Navigator.pushNamed(context, 'itemPage');
