@@ -8,12 +8,12 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.all(30),
       child: Row(
         children: [
           const Icon(
             Icons.sort,
-            size: 30,
+            size: 25,
             color: Color(0xFF4C53A5),
           ),
           const Padding(
@@ -23,7 +23,7 @@ class HomeAppBar extends StatelessWidget {
             child: Text(
               'Naurapedia',
               style: TextStyle(
-                fontSize: 23,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF4C53A5),
               ),
@@ -46,7 +46,7 @@ class HomeAppBar extends StatelessWidget {
               },
               child: const Icon(
                 Icons.shopping_bag_outlined,
-                size: 35,
+                size: 30,
                 color: Color(0xFF4C53A5),
               ),
             ),

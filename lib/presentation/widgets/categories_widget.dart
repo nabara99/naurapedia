@@ -7,7 +7,7 @@ class CategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
+      height: 55,
       child: ListView.builder(
         itemCount: GlobalVariables.categoryIcons.length,
         scrollDirection: Axis.horizontal,
@@ -22,7 +22,7 @@ class CategoriesWidget extends StatelessWidget {
                   child: Image.asset(
                     GlobalVariables.categoryIcons[index]['image']!,
                     fit: BoxFit.cover,
-                    height: 40,
+                    height: 35,
                     width: 40,
                   ),
                 ),

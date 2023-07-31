@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:naurapedia/presentation/widgets/banner_widget.dart';
 import 'package:naurapedia/presentation/widgets/home_app_bar.dart';
 import 'package:naurapedia/presentation/widgets/categories_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,11 +13,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           const HomeAppBar(),
           Container(
-            // height: 500,
             padding: const EdgeInsets.only(top: 15),
             decoration: const BoxDecoration(
               color: Color(0xFFEDECF2),
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  height: 50,
+                  height: 35,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                         margin: const EdgeInsets.only(
                           left: 5,
                         ),
-                        height: 50,
+                        height: 35,
                         width: 300,
                         child: TextFormField(
                           onFieldSubmitted: (_) {},
@@ -62,19 +62,26 @@ class HomePage extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.symmetric(
-                    vertical: 20,
+                    vertical: 12,
                     horizontal: 10,
                   ),
                   child: const Text(
                     'Categories',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4C53A5),
                     ),
                   ),
                 ),
                 const CategoriesWidget(),
+                const SizedBox(
+                  height: 5,
+                ),
+                const BannerWidget(),
+                const SizedBox(
+                  height: 5,
+                ),
                 Container(
                   alignment: Alignment.centerLeft,
                   margin:
@@ -82,37 +89,37 @@ class HomePage extends StatelessWidget {
                   child: const Text(
                     'List Products',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4C53A5),
                     ),
                   ),
                 ),
-                const ItemsWidget(),
               ],
             ),
           ),
+          Expanded(child: ItemsWidget()),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
         onTap: (index) {},
-        height: 70,
+        height: 45,
         color: const Color(0xFF4C53A5),
         items: const [
           Icon(
             Icons.home,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           Icon(
             CupertinoIcons.cart,
-            size: 30,
+            size: 25,
             color: Colors.white,
           ),
           Icon(
-            Icons.list,
-            size: 30,
+            Icons.person_3_outlined,
+            size: 25,
             color: Colors.white,
           ),
         ],

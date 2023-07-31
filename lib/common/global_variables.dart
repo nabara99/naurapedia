@@ -1,4 +1,5 @@
 class GlobalVariables {
+  static const baseUrl = 'http://103.150.191.190:1338';
   static const List<Map<String, String>> categoryIcons = [
     {
       'title': 'Books',
@@ -36,5 +37,13 @@ class GlobalVariables {
       'title': 'Vegetables',
       'image': 'assets/icons/vegetables.png',
     },
+  ];
+
+  static const List<String> bannerImages = [
+    'assets/images/adv.png',
+    'assets/images/breakfast.png',
+    'assets/images/dinner.png',
+    'assets/images/pizza.png',
+    'assets/images/boat.png',
   ];
 }
