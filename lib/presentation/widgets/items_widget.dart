@@ -36,7 +36,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
               crossAxisCount: 2,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
-              childAspectRatio: 0.75,
+              childAspectRatio: 0.65,
             ),
             itemBuilder: (context, index) {
               final Product product = state.data.data![index];

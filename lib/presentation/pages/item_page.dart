@@ -32,7 +32,7 @@ class _ItemPageState extends State<ItemPage> {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Image.asset(
-              'assets/images/1.png',
+              'assets/images/adv.png',
               height: 300,
             ),
           ),
