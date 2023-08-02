@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                           left: 5,
                         ),
                         height: 35,
-                        width: 300,
+                        width: 260,
                         child: TextFormField(
                           onFieldSubmitted: (_) {},
                           decoration: const InputDecoration(

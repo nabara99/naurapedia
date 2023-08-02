@@ -31,7 +31,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
         }
         if (state is GetProductsLoaded) {
           return GridView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 8,
@@ -47,7 +47,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                   top: 4,
                 ),
                 margin: const EdgeInsets.symmetric(
-                  vertical: 5,
+                  // vertical: 2,
                   horizontal: 10,
                 ),
                 decoration: BoxDecoration(
@@ -88,7 +88,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         margin: const EdgeInsets.all(10),
                         child: Image.network(
                           product.attributes!.image!,
-                          height: 85,
+                          height: 80,
                           width: 100,
                         ),
                       ),
@@ -125,7 +125,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                             color: Color(0xFF4C53A5),
                           ),
                           Text(
-                            'Add to cart',
+                            'cart',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,

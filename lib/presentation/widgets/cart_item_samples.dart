@@ -26,7 +26,7 @@ class CartItemSamples extends StatelessWidget {
               ),
               Container(
                 height: 70,
-                width: 70,
+                width: 68,
                 margin: const EdgeInsets.only(right: 15),
                 child: Image.asset('assets/images/boat.png'),
               ),
