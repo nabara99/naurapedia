@@ -1,14 +1,28 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
+import 'package:naurapedia/common/global_variables.dart';
+import 'package:naurapedia/presentation/pages/account_page.dart';
+import 'package:naurapedia/presentation/pages/cart_page.dart';
 import 'package:naurapedia/presentation/widgets/banner_widget.dart';
 import 'package:naurapedia/presentation/widgets/home_app_bar.dart';
 import 'package:naurapedia/presentation/widgets/categories_widget.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/items_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _page = 0;
+  double bottomBarWidth = 42;
+  double bottomBarBorderWidth = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +54,7 @@ class HomePage extends StatelessWidget {
                       const Icon(
                         Icons.search,
                         size: 27,
-                        color: Color(0xFF4C53A5),
+                        color: Colors.grey,
                       ),
                       Container(
                         margin: const EdgeInsets.only(
@@ -61,66 +75,151 @@ class HomePage extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 10,
-                  ),
+                  margin: const EdgeInsets.all(10),
                   child: const Text(
                     'Categories',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4C53A5),
+                      color: Colors.green,
                     ),
                   ),
                 ),
                 const CategoriesWidget(),
-                const SizedBox(
-                  height: 5,
-                ),
                 const BannerWidget(),
-                const SizedBox(
-                  height: 5,
-                ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  margin: const EdgeInsets.all(5),
                   child: const Text(
                     'List Products',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4C53A5),
+                      color: Colors.green,
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          Expanded(child: ItemsWidget()),
+          const Expanded(child: ItemsWidget()),
         ],
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.transparent,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        selectedItemColor: GlobalVariables.selectedNavBarColor,
+        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+        backgroundColor: GlobalVariables.backgroundColor,
+        iconSize: 28,
         onTap: (index) {},
-        height: 45,
-        color: const Color(0xFF4C53A5),
-        items: const [
-          Icon(
-            Icons.home,
-            size: 25,
-            color: Colors.white,
+        items: [
+          // HOME
+          BottomNavigationBarItem(
+            icon: Container(
+              width: bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: _page == 0
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
+                    width: bottomBarBorderWidth,
+                  ),
+                ),
+              ),
+              child: const Icon(
+                Icons.home_outlined,
+              ),
+            ),
+            label: '',
           ),
-          Icon(
-            CupertinoIcons.cart,
-            size: 25,
-            color: Colors.white,
+          // ACCOUNT
+          BottomNavigationBarItem(
+            icon: Container(
+              width: bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: _page == 1
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
+                    width: bottomBarBorderWidth,
+                  ),
+                ),
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const AccountPage();
+                  }));
+                },
+                child: const Icon(
+                  Icons.person_outline_outlined,
+                ),
+              ),
+            ),
+            label: '',
           ),
-          Icon(
-            Icons.person_3_outlined,
-            size: 25,
-            color: Colors.white,
+          // CART
+          BottomNavigationBarItem(
+            icon: Container(
+              width: bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: _page == 2
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
+                    width: bottomBarBorderWidth,
+                  ),
+                ),
+              ),
+              child: BlocBuilder<CheckoutBloc, CheckoutState>(
+                builder: (context, state) {
+                  if (state is CheckoutLoaded) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const CartPage();
+                            },
+                          ),
+                        );
+                      },
+                      child: badges.Badge(
+                        badgeStyle: const badges.BadgeStyle(
+                            elevation: 0, badgeColor: Colors.white),
+                        // elevation: 0,
+                        badgeContent: Text(
+                          '${state.items.length}',
+                          style: const TextStyle(color: Color(0xffEE4D2D)),
+                        ),
+                        // badgeColor: Colors.white,
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                        ),
+                      ),
+                    );
+                  }
+                  return const badges.Badge(
+                    badgeStyle: badges.BadgeStyle(
+                        elevation: 0, badgeColor: Colors.white),
+                    // elevation: 0,
+                    badgeContent: Text(
+                      '4',
+                      style: TextStyle(color: Color(0xffEE4D2D)),
+                    ),
+                    // badgeColor: Colors.white,
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                    ),
+                  );
+                },
+              ),
+            ),
+            label: '',
           ),
         ],
       ),
