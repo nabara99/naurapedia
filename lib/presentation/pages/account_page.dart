@@ -7,6 +7,7 @@ import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
 import 'package:naurapedia/common/global_variables.dart';
 import 'package:naurapedia/presentation/pages/cart_page.dart';
 import 'package:naurapedia/presentation/pages/home_page.dart';
+import 'package:naurapedia/presentation/widgets/account_app_bar.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -23,17 +24,10 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dashboard"),
-        actions: const [],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [],
-          ),
-        ),
+      body: ListView(
+        children: [
+          AccountAppBar(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
