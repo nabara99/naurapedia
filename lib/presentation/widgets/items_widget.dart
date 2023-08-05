@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
 import 'package:naurapedia/bloc/get_products/get_products_bloc.dart';
 
 import '../../data/models/responses/list_product_response_model.dart';
@@ -30,6 +31,11 @@ class _ItemsWidgetState extends State<ItemsWidget> {
           );
         }
         if (state is GetProductsLoaded) {
+          if (state.data.data!.isEmpty) {
+            return const Center(
+              child: Text('Data empty'),
+            );
+          }
           return GridView.builder(
             padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -100,7 +106,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                         product.attributes!.name!,
                         style: const TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF4C53A5),
+                          color: Colors.black87,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -110,43 +116,57 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                       child: Text(
                         'Rp. ${formatAngka(product.attributes!.price!)}',
                         style: const TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF4C53A5),
+                            fontSize: 12,
+                            color: Colors.black54,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(
-                            Icons.shopping_cart_checkout,
-                            color: Color(0xFF4C53A5),
+                            Icons.add_shopping_cart,
+                            color: Colors.blueGrey,
                           ),
                           Text(
                             'cart',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4C53A5),
+                              color: Colors.black54,
                             ),
                           ),
                           InkWell(
-                            // onTap: () {},
-                            child: const Icon(
+                            onTap: () {
+                              context
+                                  .read<CheckoutBloc>()
+                                  .add(RemoveFromCartEvent(product: product));
+                            },
+                            child: Icon(
                               Icons.remove_circle_outline,
                               size: 18,
-                              color: Color(0xffEE4D2D),
+                              color: Colors.red,
                             ),
                           ),
-                          const Text('0'),
+                          Text(
+                            '0',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           InkWell(
-                            // onTap: () {},
-                            child: const Icon(
+                            onTap: () {
+                              context
+                                  .read<CheckoutBloc>()
+                                  .add(AddtoCartEvent(product: product));
+                            },
+                            child: Icon(
                               Icons.add_circle_outline,
                               size: 18,
-                              color: Color(0xffEE4D2D),
+                              color: Colors.green,
                             ),
                           ),
                         ],

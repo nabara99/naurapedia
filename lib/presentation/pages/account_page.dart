@@ -1,86 +1,42 @@
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
 import 'package:naurapedia/common/global_variables.dart';
-import 'package:naurapedia/presentation/pages/account_page.dart';
+import 'package:naurapedia/presentation/pages/cart_page.dart';
 import 'package:naurapedia/presentation/pages/home_page.dart';
-import 'package:badges/badges.dart' as badges;
 
-import '../widgets/cart_app_bar.dart';
-import '../widgets/cart_item_samples.dart';
-
-class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+class AccountPage extends StatefulWidget {
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
-  State<CartPage> createState() => _CartPageState();
+  State<AccountPage> createState() => _AccountPageState();
 }
 
-class _CartPageState extends State<CartPage> {
-  int page = 2;
+class _AccountPageState extends State<AccountPage> {
+  int _page = 1;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          const CartAppBar(),
-          Container(
-            height: 700,
-            padding: const EdgeInsets.only(top: 15),
-            decoration: const BoxDecoration(
-              color: Color(0xFFEDECF2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
-              ),
-            ),
-            child: Column(
-              children: [
-                const CartItemSamples(),
-                Container(
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(10),
-                  // ),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          'Add Coupon Code',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: const Text("Dashboard"),
+        actions: const [],
       ),
-      // bottomNavigationBar: const CartBottomNavBar(),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [],
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
+        currentIndex: 1,
         selectedItemColor: GlobalVariables.selectedNavBarColor,
         unselectedItemColor: GlobalVariables.unselectedNavBarColor,
         backgroundColor: GlobalVariables.backgroundColor,
@@ -94,7 +50,7 @@ class _CartPageState extends State<CartPage> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 0
+                    color: _page == 0
                         ? GlobalVariables.selectedNavBarColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -126,7 +82,7 @@ class _CartPageState extends State<CartPage> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 1
+                    color: _page == 1
                         ? GlobalVariables.selectedNavBarColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -139,21 +95,13 @@ class _CartPageState extends State<CartPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return AccountPage();
+                        return const AccountPage();
                       },
                     ),
                   );
                 },
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const AccountPage();
-                    }));
-                  },
-                  child: const Icon(
-                    Icons.person_outline_outlined,
-                  ),
+                child: const Icon(
+                  Icons.person_outline_outlined,
                 ),
               ),
             ),
@@ -166,7 +114,7 @@ class _CartPageState extends State<CartPage> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 2
+                    color: _page == 2
                         ? GlobalVariables.selectedNavBarColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -176,22 +124,26 @@ class _CartPageState extends State<CartPage> {
               child: BlocBuilder<CheckoutBloc, CheckoutState>(
                 builder: (context, state) {
                   if (state is CheckoutLoaded) {
-                    return badges.Badge(
-                      badgeStyle: const badges.BadgeStyle(
-                        badgeColor: Colors.red,
-                      ),
-                      badgeContent: Text(
-                        '${state.items.length}',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      // badgeColor: Colors.white,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const CartPage();
-                          }));
-                        },
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const CartPage();
+                            },
+                          ),
+                        );
+                      },
+                      child: badges.Badge(
+                        badgeStyle: const badges.BadgeStyle(
+                            elevation: 0, badgeColor: Colors.white),
+                        // elevation: 0,
+                        badgeContent: Text(
+                          '${state.items.length}',
+                          style: const TextStyle(color: Color(0xffEE4D2D)),
+                        ),
+                        // badgeColor: Colors.white,
                         child: const Icon(
                           Icons.shopping_cart_outlined,
                         ),
@@ -203,7 +155,7 @@ class _CartPageState extends State<CartPage> {
                         elevation: 0, badgeColor: Colors.white),
                     // elevation: 0,
                     badgeContent: Text(
-                      '0',
+                      '4',
                       style: TextStyle(color: Color(0xffEE4D2D)),
                     ),
                     // badgeColor: Colors.white,

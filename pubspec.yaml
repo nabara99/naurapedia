@@ -32,7 +32,6 @@ dependencies:
   carousel_slider: ^4.2.1
   clippy_flutter: ^2.0.0-nullsafety.1
   cupertino_icons: ^1.0.2
-  curved_navigation_bar: ^1.0.3
   dartz: ^0.10.1
   flutter:
     sdk: flutter

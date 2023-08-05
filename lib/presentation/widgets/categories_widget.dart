@@ -29,6 +29,10 @@ class CategoriesWidget extends StatelessWidget {
               ),
               Text(
                 GlobalVariables.categoryIcons[index]['title']!,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black54,
+                ),
               ),
             ],
           );

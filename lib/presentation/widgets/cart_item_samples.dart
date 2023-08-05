@@ -21,7 +21,7 @@ class CartItemSamples extends StatelessWidget {
               Radio(
                 value: "",
                 groupValue: "",
-                activeColor: const Color(0xFF4C53A5),
+                activeColor: Colors.green,
                 onChanged: (index) {},
               ),
               Container(
@@ -41,7 +41,7 @@ class CartItemSamples extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF4C53A5),
+                        color: Colors.black87,
                       ),
                     ),
                     Text(
@@ -49,7 +49,7 @@ class CartItemSamples extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF4C53A5),
+                        color: Colors.black87,
                       ),
                     ),
                   ],
@@ -93,7 +93,7 @@ class CartItemSamples extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4C53A5),
+                              color: Colors.black87,
                             ),
                           ),
                         ),

@@ -7,7 +7,7 @@ class CartAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.only(top: 15, bottom: 10, left: 20, right: 20),
       child: Row(
         children: [
           InkWell(
@@ -16,8 +16,8 @@ class CartAppBar extends StatelessWidget {
             },
             child: const Icon(
               Icons.arrow_back,
-              size: 30,
-              color: Color(0xFF4C53A5),
+              size: 25,
+              color: Colors.black87,
             ),
           ),
           const Padding(
@@ -25,17 +25,17 @@ class CartAppBar extends StatelessWidget {
             child: Text(
               'Cart',
               style: TextStyle(
-                fontSize: 23,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF4C53A5),
+                color: Colors.green,
               ),
             ),
           ),
           const Spacer(),
           const Icon(
             Icons.more_vert,
-            size: 30,
-            color: Color(0xFF4C53A5),
+            size: 25,
+            color: Colors.black54,
           ),
         ],
       ),
