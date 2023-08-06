@@ -5,9 +5,10 @@ import 'package:naurapedia/common/global_variables.dart';
 import 'package:naurapedia/presentation/pages/account_page.dart';
 import 'package:naurapedia/presentation/pages/home_page.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:naurapedia/presentation/widgets/cart_item.dart';
 
 import '../widgets/cart_app_bar.dart';
-import '../widgets/cart_item_samples.dart';
+import 'package:intl/intl.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -24,61 +25,86 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CartAppBar(),
+      ),
+      body: Column(
         children: [
-          const CartAppBar(),
-          Container(
-            height: 700,
-            padding: const EdgeInsets.only(top: 15),
-            decoration: const BoxDecoration(
-              color: Color(0xFFEDECF2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
-              ),
-            ),
-            child: Column(
-              children: [
-                const CartItemSamples(),
-                Container(
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(10),
-                  // ),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          'Add Coupon Code',
+          const CartItem(),
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                height: 90,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Total',
                           style: TextStyle(
                             color: Colors.black54,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                          ),
+                        ),
+                        BlocBuilder<CheckoutBloc, CheckoutState>(
+                          builder: (context, state) {
+                            if (state is CheckoutLoaded) {
+                              final total = state.items.fold(0,
+                                  (sum, item) => sum + item.attributes!.price!);
+                              return Text(
+                                'Rp. ${formatAngka(total)}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ),
+                              );
+                            }
+                            return const Text(
+                              'calculate',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black54,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(1),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 40),
+                          backgroundColor: Colors.green,
+                        ),
+                        child: const Text(
+                          'Checkout',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
-      // bottomNavigationBar: const CartBottomNavBar(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2,
         selectedItemColor: GlobalVariables.selectedNavBarColor,
@@ -139,7 +165,7 @@ class _CartPageState extends State<CartPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return AccountPage();
+                        return const AccountPage();
                       },
                     ),
                   );
@@ -204,7 +230,7 @@ class _CartPageState extends State<CartPage> {
                     // elevation: 0,
                     badgeContent: Text(
                       '0',
-                      style: TextStyle(color: Color(0xffEE4D2D)),
+                      style: TextStyle(color: Colors.red),
                     ),
                     // badgeColor: Colors.white,
                     child: Icon(
@@ -219,5 +245,10 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
     );
+  }
+
+  String formatAngka(int number) {
+    final formatter = NumberFormat('#,###');
+    return formatter.format(number);
   }
 }

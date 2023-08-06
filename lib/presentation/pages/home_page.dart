@@ -7,10 +7,9 @@ import 'package:naurapedia/presentation/widgets/banner_widget.dart';
 import 'package:naurapedia/presentation/widgets/home_app_bar.dart';
 import 'package:naurapedia/presentation/widgets/categories_widget.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/items_widget.dart';
+import '../widgets/items_product.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          const Expanded(child: ItemsWidget()),
+          const Expanded(child: ItemsProduct()),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -110,7 +109,7 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: GlobalVariables.selectedNavBarColor,
         unselectedItemColor: GlobalVariables.unselectedNavBarColor,
         backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
+        iconSize: 25,
         onTap: (index) {},
         items: [
           // HOME
@@ -190,11 +189,11 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: badges.Badge(
                         badgeStyle: const badges.BadgeStyle(
-                            elevation: 0, badgeColor: Colors.white),
+                            elevation: 0, badgeColor: Colors.red),
                         // elevation: 0,
                         badgeContent: Text(
                           '${state.items.length}',
-                          style: const TextStyle(color: Color(0xffEE4D2D)),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         // badgeColor: Colors.white,
                         child: const Icon(
@@ -208,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                         elevation: 0, badgeColor: Colors.white),
                     // elevation: 0,
                     badgeContent: Text(
-                      '4',
+                      '0',
                       style: TextStyle(color: Color(0xffEE4D2D)),
                     ),
                     // badgeColor: Colors.white,

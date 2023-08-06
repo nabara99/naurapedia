@@ -7,14 +7,14 @@ import '../../data/models/responses/list_product_response_model.dart';
 
 import 'package:intl/intl.dart';
 
-class ItemsWidget extends StatefulWidget {
-  const ItemsWidget({super.key});
+class ItemsProduct extends StatefulWidget {
+  const ItemsProduct({super.key});
 
   @override
-  State<ItemsWidget> createState() => _ItemsWidgetState();
+  State<ItemsProduct> createState() => _ItemsProductState();
 }
 
-class _ItemsWidgetState extends State<ItemsWidget> {
+class _ItemsProductState extends State<ItemsProduct> {
   @override
   void initState() {
     context.read<GetProductsBloc>().add(DoGetProductsEvent());
@@ -65,21 +65,6 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        // Container(
-                        //   padding: const EdgeInsets.all(5),
-                        //   decoration: BoxDecoration(
-                        //     color: const Color(0xFF4C53A5),
-                        //     borderRadius: BorderRadius.circular(20),
-                        //   ),
-                        //   child: const Text(
-                        //     'New',
-                        //     style: TextStyle(
-                        //       fontSize: 10,
-                        //       color: Colors.white,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        // ),
                         Icon(
                           Icons.favorite_border,
                           color: Colors.red,
@@ -122,15 +107,15 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.add_shopping_cart,
                             color: Colors.blueGrey,
                           ),
-                          Text(
+                          const Text(
                             'cart',
                             style: TextStyle(
                               fontSize: 12,
@@ -144,18 +129,29 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                   .read<CheckoutBloc>()
                                   .add(RemoveFromCartEvent(product: product));
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.remove_circle_outline,
                               size: 18,
                               color: Colors.red,
                             ),
                           ),
-                          Text(
-                            '0',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          BlocBuilder<CheckoutBloc, CheckoutState>(
+                            builder: (context, state) {
+                              if (state is CheckoutLoaded) {
+                                final countItem = state.items
+                                    .where(
+                                        (element) => element.id == product.id)
+                                    .length;
+                                return Text('$countItem');
+                              }
+                              return const Text(
+                                '0',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              );
+                            },
                           ),
                           InkWell(
                             onTap: () {
@@ -163,7 +159,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                                   .read<CheckoutBloc>()
                                   .add(AddtoCartEvent(product: product));
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.add_circle_outline,
                               size: 18,
                               color: Colors.green,

@@ -25,7 +25,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: [
+        children: const [
           AccountAppBar(),
         ],
       ),
@@ -34,7 +34,7 @@ class _AccountPageState extends State<AccountPage> {
         selectedItemColor: GlobalVariables.selectedNavBarColor,
         unselectedItemColor: GlobalVariables.unselectedNavBarColor,
         backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
+        iconSize: 25,
         onTap: (index) {},
         items: [
           // HOME
@@ -131,11 +131,11 @@ class _AccountPageState extends State<AccountPage> {
                       },
                       child: badges.Badge(
                         badgeStyle: const badges.BadgeStyle(
-                            elevation: 0, badgeColor: Colors.white),
+                            elevation: 0, badgeColor: Colors.red),
                         // elevation: 0,
                         badgeContent: Text(
                           '${state.items.length}',
-                          style: const TextStyle(color: Color(0xffEE4D2D)),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         // badgeColor: Colors.white,
                         child: const Icon(
