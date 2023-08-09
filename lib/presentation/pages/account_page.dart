@@ -17,7 +17,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  int _page = 1;
+  final _page = 1;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
 

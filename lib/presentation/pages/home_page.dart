@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _page = 0;
+  final _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
 

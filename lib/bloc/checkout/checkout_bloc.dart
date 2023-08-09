@@ -6,7 +6,7 @@ part 'checkout_event.dart';
 part 'checkout_state.dart';
 
 class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
-  CheckoutBloc() : super(CheckoutLoaded(items: [])) {
+  CheckoutBloc() : super(CheckoutLoaded(items: const [])) {
     on<AddtoCartEvent>((event, emit) {
       final currentState = state as CheckoutLoaded;
 
