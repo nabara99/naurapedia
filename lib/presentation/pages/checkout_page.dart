@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
-import 'package:naurapedia/bloc/order/order_bloc.dart';
-import 'package:naurapedia/common/snap_widget.dart';
-import 'package:naurapedia/data/models/order_request_model.dart';
+
+import '../../bloc/checkout/checkout_bloc.dart';
+import '../../bloc/order/order_bloc.dart';
+import '../../common/snap_widget.dart';
+import '../../data/models/order_request_model.dart';
 
 class CheckOutPage extends StatefulWidget {
   const CheckOutPage({super.key});

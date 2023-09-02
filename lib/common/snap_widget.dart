@@ -28,7 +28,7 @@ class _SnapWidgetState extends State<SnapWidget> {
         NavigationDelegate(
           onProgress: (int progress) {},
           onPageStarted: (String url) {
-            print('onPageStarted: $url');
+            // print('onPageStarted: $url');
             if (url.contains('status_code=202&transaction_status=deny')) {
               Navigator.push(context, MaterialPageRoute(builder: (_) {
                 return const PaymentFailedPage();

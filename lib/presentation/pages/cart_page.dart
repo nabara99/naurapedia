@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
-import 'package:naurapedia/common/global_variables.dart';
-import 'package:naurapedia/data/datasources/auth_local_datasources.dart';
-import 'package:naurapedia/presentation/pages/account_page.dart';
-import 'package:naurapedia/presentation/pages/auth_page.dart';
-import 'package:naurapedia/presentation/pages/checkout_page.dart';
-import 'package:naurapedia/presentation/pages/home_page.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:naurapedia/presentation/widgets/cart_item.dart';
 
+import '../../bloc/checkout/checkout_bloc.dart';
+import '../../common/global_variables.dart';
+import '../../data/datasources/auth_local_datasources.dart';
 import '../widgets/cart_app_bar.dart';
 import 'package:intl/intl.dart';
+
+import '../widgets/cart_item.dart';
+import 'account_page.dart';
+import 'auth_page.dart';
+import 'checkout_page.dart';
+import 'home_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});

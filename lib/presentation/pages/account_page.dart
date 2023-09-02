@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
-import 'package:naurapedia/common/global_variables.dart';
-import 'package:naurapedia/presentation/pages/cart_page.dart';
-import 'package:naurapedia/presentation/pages/home_page.dart';
-import 'package:naurapedia/presentation/widgets/account_app_bar.dart';
+
+import '../../bloc/checkout/checkout_bloc.dart';
+import '../../common/global_variables.dart';
+import '../../data/datasources/auth_local_datasources.dart';
+import '../../data/models/responses/auth_response_model.dart';
+import 'auth_page.dart';
+import 'cart_page.dart';
+import 'home_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -20,13 +23,67 @@ class _AccountPageState extends State<AccountPage> {
   final _page = 1;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
+  User? user;
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  Future<void> getUser() async {
+    user = await AuthLocalDatasource().getUser();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: const [
-          AccountAppBar(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Account',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              )),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(color: Colors.white),
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          const Padding(padding: EdgeInsets.all(5)),
+          Text(user != null
+              ? 'Hello ... ${user!.username}'
+              : 'Kamu belum login'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[300]),
+                    child: const Text('List Order')),
+                ElevatedButton(
+                    onPressed: () async {
+                      await AuthLocalDatasource().removeAuthData();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return AuthPage();
+                      }));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[400]),
+                    child: const Text('Logout')),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

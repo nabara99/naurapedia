@@ -1,15 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
-import 'package:naurapedia/bloc/get_products/get_products_bloc.dart';
-import 'package:naurapedia/bloc/login/login_bloc.dart';
-import 'package:naurapedia/bloc/order/order_bloc.dart';
-import 'package:naurapedia/data/datasources/auth_remote_datasource.dart';
-import 'package:naurapedia/data/datasources/order_remote_datasource.dart';
-import 'package:naurapedia/data/datasources/product_remote_datasource.dart';
-import 'package:naurapedia/presentation/pages/cart_page.dart';
-import 'package:naurapedia/presentation/pages/home_page.dart';
-import 'package:naurapedia/presentation/pages/item_page.dart';
 import 'package:flutter/material.dart';
+
+import 'bloc/checkout/checkout_bloc.dart';
+import 'bloc/get_products/get_products_bloc.dart';
+import 'bloc/login/login_bloc.dart';
+import 'bloc/order/order_bloc.dart';
+import 'bloc/register/register_bloc.dart';
+import 'data/datasources/auth_remote_datasource.dart';
+import 'data/datasources/order_remote_datasource.dart';
+import 'data/datasources/product_remote_datasource.dart';
+import 'presentation/pages/cart_page.dart';
+import 'presentation/pages/home_page.dart';
+import 'presentation/pages/item_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OrderBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(AuthRemoteDataSource()),
         ),
       ],
       child: MaterialApp(

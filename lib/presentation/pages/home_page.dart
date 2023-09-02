@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naurapedia/bloc/checkout/checkout_bloc.dart';
-import 'package:naurapedia/common/global_variables.dart';
-import 'package:naurapedia/presentation/pages/account_page.dart';
-import 'package:naurapedia/presentation/pages/cart_page.dart';
-import 'package:naurapedia/presentation/widgets/banner_widget.dart';
-import 'package:naurapedia/presentation/widgets/home_app_bar.dart';
-import 'package:naurapedia/presentation/widgets/categories_widget.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
+import '../../bloc/checkout/checkout_bloc.dart';
+import '../../common/global_variables.dart';
+import '../widgets/banner_widget.dart';
+import '../widgets/categories_widget.dart';
+import '../widgets/home_app_bar.dart';
 import '../widgets/items_product.dart';
+import 'account_page.dart';
+import 'cart_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

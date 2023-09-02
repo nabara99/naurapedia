@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naurapedia/bloc/login/login_bloc.dart';
-import 'package:naurapedia/common/custom_button.dart';
-import 'package:naurapedia/common/custom_textfield.dart';
-import 'package:naurapedia/common/global_variables.dart';
-import 'package:naurapedia/data/datasources/auth_local_datasources.dart';
-import 'package:naurapedia/data/models/login_request_model.dart';
-import 'package:naurapedia/presentation/pages/home_page.dart';
+
+import '../../bloc/login/login_bloc.dart';
+import '../../bloc/register/register_bloc.dart';
+import '../../common/custom_button.dart';
+import '../../common/custom_textfield.dart';
+import '../../common/global_variables.dart';
+import '../../data/datasources/auth_local_datasources.dart';
+import '../../data/models/login_request_model.dart';
+import '../../data/models/register_request_model.dart';
+import 'home_page.dart';
 
 enum Auth {
   signin,
@@ -77,22 +80,69 @@ class _AuthPageState extends State<AuthPage> {
                           controller: _nameController,
                           hintText: 'name',
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Password',
                         ),
-                        const SizedBox(height: 12),
-                        CustomButton(
-                            text: 'Sign Up',
-                            onTap: () {
-                              if (_signUpFormKey.currentState!.validate()) {}
-                            }),
+                        const SizedBox(height: 10),
+                        BlocConsumer<RegisterBloc, RegisterState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              orElse: () {},
+                              error: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: const Text('Register Error'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              },
+                              loaded: (model) async {
+                                await AuthLocalDatasource().saveAuthData(model);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const HomePage();
+                                    },
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              orElse: () {
+                                return CustomButton(
+                                  text: 'Sign Up',
+                                  onTap: () {
+                                    if (_signUpFormKey.currentState!
+                                        .validate()) {
+                                      final requestModel = RegisterRequestModel(
+                                        name: _nameController.text,
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        username: _nameController.text,
+                                      );
+
+                                      context.read<RegisterBloc>().add(
+                                          RegisterEvent.register(requestModel));
+                                    }
+                                  },
+                                );
+                              },
+                              loading: () => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
