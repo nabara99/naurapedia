@@ -37,6 +37,8 @@ class _ItemsProductState extends State<ItemsProduct> {
             );
           }
           return GridView.builder(
+            physics: const PageScrollPhysics(),
+            shrinkWrap: true,
             padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

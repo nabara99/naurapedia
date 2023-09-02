@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
-  static const baseUrl = 'http://103.150.191.190:1338';
+  static const baseUrl = 'http://103.150.93.29:1337';
   static const List<Map<String, String>> categoryIcons = [
     {
       'title': 'Books',
@@ -50,7 +50,7 @@ class GlobalVariables {
   ];
 
   static const backgroundColor = Colors.white;
-  static const Color greyBackgroundCOlor = Color(0xffebecee);
+  static const Color greyBackgroundColor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.green;
   static const unselectedNavBarColor = Colors.black87;
 }
