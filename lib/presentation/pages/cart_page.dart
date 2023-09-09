@@ -5,7 +5,6 @@ import 'package:badges/badges.dart' as badges;
 import '../../bloc/checkout/checkout_bloc.dart';
 import '../../common/global_variables.dart';
 import '../../data/datasources/auth_local_datasources.dart';
-import '../widgets/cart_app_bar.dart';
 import 'package:intl/intl.dart';
 
 import '../widgets/cart_item.dart';
@@ -29,9 +28,20 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: CartAppBar(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Cart',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              )),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(color: Colors.white),
+          ),
+        ),
       ),
       body: Column(
         children: [

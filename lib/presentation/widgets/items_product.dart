@@ -7,6 +7,8 @@ import '../../data/models/responses/list_product_response_model.dart';
 
 import 'package:intl/intl.dart';
 
+import '../pages/detail_product_page.dart';
+
 class ItemsProduct extends StatefulWidget {
   const ItemsProduct({super.key});
 
@@ -75,7 +77,12 @@ class _ItemsProductState extends State<ItemsProduct> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'itemPage');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return DetailProductPage(
+                            product: product,
+                          );
+                        }));
                       },
                       child: Container(
                         margin: const EdgeInsets.all(10),

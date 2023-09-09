@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GlobalVariables {
-  static const baseUrl = 'http://103.150.93.29:1337';
+  static const baseUrl = 'http://naurapedia.my.id';
   static const List<Map<String, String>> categoryIcons = [
     {
       'title': 'Books',

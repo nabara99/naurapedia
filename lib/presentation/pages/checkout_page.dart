@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naurapedia/data/datasources/auth_local_datasources.dart';
 
 import '../../bloc/checkout/checkout_bloc.dart';
 import '../../bloc/order/order_bloc.dart';
@@ -135,7 +136,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    final userId = await AuthLocalDatasource().getUserId();
                     final total = state.items
                         .fold(0, (sum, item) => sum + item.attributes!.price!);
                     final data = Data(
@@ -152,6 +154,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       courierName: 'JNE',
                       shippingCost: 22000,
                       statusOrder: 'waitingPayment',
+                      userId: userId,
                     );
                     final requestModel = OrderRequestModel(data: data);
                     context

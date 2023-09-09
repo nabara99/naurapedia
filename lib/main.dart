@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:naurapedia/bloc/list_order/list_order_bloc.dart';
+import 'package:naurapedia/bloc/search/search_bloc.dart';
 
 import 'bloc/checkout/checkout_bloc.dart';
 import 'bloc/get_products/get_products_bloc.dart';
@@ -11,7 +13,6 @@ import 'data/datasources/order_remote_datasource.dart';
 import 'data/datasources/product_remote_datasource.dart';
 import 'presentation/pages/cart_page.dart';
 import 'presentation/pages/home_page.dart';
-import 'presentation/pages/item_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -37,6 +38,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RegisterBloc(AuthRemoteDataSource()),
         ),
+        BlocProvider(
+          create: (context) => SearchBloc(ProductRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ListOrderBloc(OrderRemoteDatasource()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -46,7 +53,6 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => const HomePage(),
           "cartPage": (context) => const CartPage(),
-          "itemPage": (context) => const ItemPage(),
         },
       ),
     );

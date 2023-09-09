@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:naurapedia/bloc/list_order/list_order_bloc.dart';
 
 import '../../bloc/checkout/checkout_bloc.dart';
 import '../../common/global_variables.dart';
@@ -28,6 +30,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     getUser();
+    context.read<ListOrderBloc>().add(const ListOrderEvent.get());
     super.initState();
   }
 
@@ -65,11 +68,11 @@ class _AccountPageState extends State<AccountPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[300]),
-                    child: const Text('List Order')),
+                // ElevatedButton(
+                //     onPressed: () {},
+                //     style: ElevatedButton.styleFrom(
+                //         backgroundColor: Colors.blue[300]),
+                //     child: const Text('List Order')),
                 ElevatedButton(
                     onPressed: () async {
                       await AuthLocalDatasource().removeAuthData();
@@ -82,6 +85,44 @@ class _AccountPageState extends State<AccountPage> {
                         backgroundColor: Colors.red[400]),
                     child: const Text('Logout')),
               ],
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          const Divider(
+            thickness: 2,
+            height: 1,
+          ),
+          const Text('List Order'),
+          Expanded(
+            child: BlocBuilder<ListOrderBloc, ListOrderState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const Center(
+                      child: Text('No Orders'),
+                    );
+                  },
+                  loaded: (data) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        final order = data.data![index];
+                        return Card(
+                          elevation: 5,
+                          shadowColor: Colors.green,
+                          child: ListTile(
+                            title: Text('Order#${order.id}'),
+                            subtitle: Text(
+                                'Rp. ${formatAngka(order.attributes!.totalPrice!)} \n tanggal pesan: ${order.attributes!.createdAt}'),
+                          ),
+                        );
+                      },
+                      itemCount: data.data!.length,
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],
@@ -222,5 +263,10 @@ class _AccountPageState extends State<AccountPage> {
         ],
       ),
     );
+  }
+
+  String formatAngka(int number) {
+    final formatter = NumberFormat('#,###');
+    return formatter.format(number);
   }
 }

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../bloc/checkout/checkout_bloc.dart';
 import '../../common/global_variables.dart';
+import '../search/search_page.dart';
 import '../widgets/banner_widget.dart';
 import '../widgets/categories_widget.dart';
-import '../widgets/home_app_bar.dart';
 import '../widgets/items_product.dart';
 import 'account_page.dart';
 import 'cart_page.dart';
@@ -23,55 +23,81 @@ class _HomePageState extends State<HomePage> {
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
 
+  final TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const HomeAppBar(),
-          Container(
-            padding: const EdgeInsets.only(top: 15),
-            decoration: const BoxDecoration(
-              color: Color(0xFFEDECF2),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
-              ),
-            ),
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.search,
-                        size: 27,
-                        color: Colors.grey,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          left: 5,
-                        ),
-                        height: 35,
-                        width: 260,
-                        child: TextFormField(
-                          onFieldSubmitted: (_) {},
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Search',
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(color: Colors.green),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 42,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10),
+                    elevation: 3,
+                    child: TextFormField(
+                      controller: searchController,
+                      onFieldSubmitted: (_) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SearchPage(search: searchController.text);
+                        }));
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: InkWell(
+                          onTap: () {},
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 6),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.black,
+                              size: 23,
+                            ),
                           ),
                         ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.only(top: 10),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(96, 112, 80, 80),
+                            width: 1,
+                          ),
+                        ),
+                        hintText: 'Search',
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                        ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          Container(
+            child: Column(
+              children: [
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.all(10),

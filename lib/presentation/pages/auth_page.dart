@@ -97,8 +97,8 @@ class _AuthPageState extends State<AuthPage> {
                               orElse: () {},
                               error: () {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: const Text('Register Error'),
+                                  const SnackBar(
+                                    content: Text('Register Error'),
                                     backgroundColor: Colors.red,
                                   ),
                                 );
